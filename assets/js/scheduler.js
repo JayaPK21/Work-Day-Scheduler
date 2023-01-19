@@ -27,5 +27,10 @@ $.each(timeBlocks, function (i, val) {
         
         $(val).children('textarea').addClass('future');
     }
-});
 
+    $(val).on('click', '.saveBtn', function() {
+        var abc = $(this).siblings('textarea').val();
+
+        console.log("Text value: "+abc);
+    });
+});
