@@ -12,6 +12,8 @@ $.each(timeBlocks, function (i, val) {
     
     // As the workday starts at 9 am, adding 9 to the index to compare with the current hour.
     var blockHour = i + 9;
+    var eventText = localStorage.getItem('hour'+blockHour);
+    $(val).children('textarea').val(eventText);
 
     // Checks if each time block is in the past, present or future hour of the day.
     if(blockHour < currentHour){
@@ -28,9 +30,15 @@ $.each(timeBlocks, function (i, val) {
         $(val).children('textarea').addClass('future');
     }
 
-    $(val).on('click', '.saveBtn', function() {
-        var abc = $(this).siblings('textarea').val();
+    $(val).attr('data-hour', blockHour);
 
-        console.log("Text value: "+abc);
+    $(val).on('click', '.saveBtn', function() {
+        var task = $(this).siblings('textarea').val();
+        var hourOfDay = $(val).attr('data-hour');
+
+        localStorage.setItem('hour'+hourOfDay, task);
+        //console.log("hour of day: "+$(val).attr('data-hour'));
+        //localStorage.setItem('task-hour')
+        console.log("Text value: "+task);
     });
 });
